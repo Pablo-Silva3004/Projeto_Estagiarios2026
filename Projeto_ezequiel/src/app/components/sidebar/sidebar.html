@@ -1,0 +1,22 @@
+<aside class="sidebar" [class.closed]="!sidebarOpen">
+  <button class="toggle-btn" (click)="toggleSidebar()">
+    {{ sidebarOpen ? '◄' : '►' }}
+  </button>
+  <ul class="sidebar-menu">
+    <li class="menu-item">
+      <a href="/" class="menu-link">📊 Dashboard</a>
+    </li>
+    <li class="menu-item">
+      <a href="/projetos" class="menu-link">📁 Projetos</a>
+    </li>
+    <li class="menu-item">
+      <a href="/usuarios" class="menu-link">👥 Usuários</a>
+    </li>
+    <li class="menu-item">
+      <a href="/relatorios" class="menu-link">📈 Relatórios</a>
+    </li>
+    <li class="menu-item">
+      <a href="/configuracoes" class="menu-link">⚙️ Configurações</a>
+    </li>
+  </ul>
+</aside>
