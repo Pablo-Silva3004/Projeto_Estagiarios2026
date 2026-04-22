@@ -1,0 +1,55 @@
+<div class="pagina">
+
+  <h1>Meu Perfil</h1>
+
+  <mat-card class="card-perfil">
+    <mat-card-content>
+
+      <div class="info-linha">
+        <mat-icon>person</mat-icon>
+        <div>
+          <span class="info-rotulo">Nome</span>
+          <span class="info-valor">{{ usuario.nome }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="info-linha">
+        <mat-icon>email</mat-icon>
+        <div>
+          <span class="info-rotulo">E-mail</span>
+          <span class="info-valor">{{ usuario.email }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="info-linha">
+        <mat-icon>work</mat-icon>
+        <div>
+          <span class="info-rotulo">Cargo</span>
+          <span class="info-valor">{{ usuario.cargo }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="info-linha">
+        <mat-icon>business</mat-icon>
+        <div>
+          <span class="info-rotulo">Departamento</span>
+          <span class="info-valor">{{ usuario.departamento }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="info-linha">
+        <mat-icon>phone</mat-icon>
+        <div>
+          <span class="info-rotulo">Telefone</span>
+          <span class="info-valor">{{ usuario.telefone }}</span>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

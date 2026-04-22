@@ -1,0 +1,50 @@
+/* Fonte Inter - Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Font Awesome - ícones complementares */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+/* Ícones do Angular Material */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5;
+  color: #1a1a2e;
+}
+
+/* Aplica Inter em todo o Angular Material */
+.mat-mdc-card,
+.mat-mdc-button,
+.mat-mdc-form-field,
+.mat-mdc-select,
+.mat-mdc-dialog-container,
+.mat-mdc-table,
+.mdc-text-field {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f2f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c8d4;
+  border-radius: 3px;
+}

@@ -1,0 +1,57 @@
+// ============================================================
+// Angular Material Custom Theme — OF Manager
+// Compatible with Angular Material 17+
+// ============================================================
+
+@use '@angular/material' as mat;
+
+// Include core styles once
+@include mat.core();
+
+// ── Custom Palette: Primary (#3235f5) ────────────────────
+$of-primary-palette: mat.define-palette((
+  50:  #e8e8fe,
+  100: #c5c6fc,
+  200: #9fa1fa,
+  300: #787bf8,
+  400: #5b5ef6,
+  500: #3235f5,   // ← brand primary
+  600: #2b2ee3,
+  700: #2224c8,
+  800: #191baf,
+  900: #0a0d87,
+  contrast: (
+    50:  rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+), 500, 300, 700);
+
+// ── Accent: subtle slate ─────────────────────────────────
+$of-accent-palette: mat.define-palette(mat.$blue-grey-palette, 600, 400, 800);
+
+// ── Warn ─────────────────────────────────────────────────
+$of-warn-palette: mat.define-palette(mat.$red-palette);
+
+// ── Light Theme ─────────────────────────────────────────
+$of-light-theme: mat.define-light-theme((
+  color: (
+    primary: $of-primary-palette,
+    accent:  $of-accent-palette,
+    warn:    $of-warn-palette,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: "'IBM Plex Sans', system-ui, sans-serif",
+  ),
+  density: 0,
+));
+
+// Apply theme
+@include mat.all-component-themes($of-light-theme);

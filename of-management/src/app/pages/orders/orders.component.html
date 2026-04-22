@@ -1,0 +1,55 @@
+<div class="pagina">
+
+  <h1>Ordens de Fabricação</h1>
+
+  <mat-card>
+    <mat-card-content>
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Nº Ordem</th>
+            <th>Produto</th>
+            <th>Qtd.</th>
+            <th>Prazo</th>
+            <th>Responsável</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ordem of ordens">
+            <td><span class="numero-ordem">{{ ordem.numero }}</span></td>
+            <td>{{ ordem.produto }}</td>
+            <td>{{ ordem.quantidade }}</td>
+            <td>{{ ordem.prazo }}</td>
+            <td>{{ ordem.responsavel }}</td>
+            <td>
+              <span class="prioridade"
+                [class.prioridade-alta]="ordem.prioridade === 'Alta'"
+                [class.prioridade-media]="ordem.prioridade === 'Média'"
+                [class.prioridade-baixa]="ordem.prioridade === 'Baixa'">
+                {{ ordem.prioridade }}
+              </span>
+            </td>
+            <td>
+              <span class="badge"
+                [class.badge-andamento]="ordem.status === 'Em Andamento'"
+                [class.badge-aguardando]="ordem.status === 'Aguardando'"
+                [class.badge-concluida]="ordem.status === 'Concluída'"
+                [class.badge-pausada]="ordem.status === 'Pausada'">
+                {{ ordem.status }}
+              </span>
+            </td>
+            <td>
+              <button mat-icon-button color="primary" (click)="abrirEdicao(ordem)" title="Editar ordem">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+</div>

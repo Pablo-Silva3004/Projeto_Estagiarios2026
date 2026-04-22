@@ -1,0 +1,29 @@
+.mat-elevation-z8 {
+  padding: 28px 32px;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela td {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #f0f2f5;
+}
+

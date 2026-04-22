@@ -1,0 +1,88 @@
+<!-- Cabeçalho do modal -->
+<div class="dialog-cabecalho">
+  <div class="dialog-cabecalho-esquerda">
+    <i class="fa-solid fa-pen-to-square icone-titulo"></i>
+    <div>
+      <h2 class="dialog-titulo">Editar Ordem</h2>
+      <p class="dialog-subtitulo">{{ ordem.numero }}</p>
+    </div>
+  </div>
+  <button mat-icon-button mat-dialog-close class="btn-fechar">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- Corpo do modal -->
+<mat-dialog-content class="conteudo-dialog">
+
+  <!-- Número da Ordem e Produto -->
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Nº da Ordem</mat-label>
+      <input matInput [(ngModel)]="ordem.numero" name="numero" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Produto</mat-label>
+      <input matInput [(ngModel)]="ordem.produto" name="produto" />
+    </mat-form-field>
+  </div>
+
+  <!-- Quantidade e Prazo -->
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Quantidade</mat-label>
+      <input matInput type="number" [(ngModel)]="ordem.quantidade" name="quantidade" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Prazo de Entrega</mat-label>
+      <input matInput [(ngModel)]="ordem.prazo" name="prazo" placeholder="dd/mm/aaaa" />
+    </mat-form-field>
+  </div>
+
+  <!-- Responsável -->
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Responsável</mat-label>
+    <input matInput [(ngModel)]="ordem.responsavel" name="responsavel" />
+  </mat-form-field>
+
+  <!-- Status e Prioridade -->
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="ordem.status" name="status">
+        <mat-option *ngFor="let s of statusOpcoes" [value]="s">{{ s }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Prioridade</mat-label>
+      <mat-select [(ngModel)]="ordem.prioridade" name="prioridade">
+        <mat-option *ngFor="let p of prioridadeOpcoes" [value]="p">{{ p }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Progresso -->
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Progresso (%)</mat-label>
+    <input matInput type="number" [(ngModel)]="ordem.progresso" name="progresso" min="0" max="100" />
+  </mat-form-field>
+
+  <!-- Observações -->
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Observações</mat-label>
+    <textarea matInput [(ngModel)]="ordem.observacoes" name="observacoes" rows="3"></textarea>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<!-- Rodapé com botões -->
+<mat-dialog-actions align="end" class="dialog-acoes">
+  <button mat-stroked-button (click)="fechar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="fechar()">
+    <mat-icon>save</mat-icon>
+    Salvar
+  </button>
+</mat-dialog-actions>
