@@ -1,0 +1,79 @@
+<!-- Fundo com degradê azul claro -->
+<div class="fundo">
+
+  <!--TELA DE LOGIN-->
+  <mat-card *ngIf="tela === 'login'" class="card-login">
+
+    <!-- Logo centralizado -->
+    <div class="logo-container">
+      <a href="#" class="logo-link">
+        <i class="fa-solid fa-gear"></i>
+        OF Manager
+      </a>
+    </div>
+
+    <!-- Campo E-mail -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" [(ngModel)]="email" name="email" placeholder="seu@email.com" />
+    </mat-form-field>
+
+    <!-- Campo Senha -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" [(ngModel)]="senha" name="senha" placeholder="••••••" />
+    </mat-form-field>
+
+    <!-- Botão Entrar -->
+    <button mat-flat-button color="primary" class="botao" (click)="entrar()">
+      Entrar
+    </button>
+
+    <!-- Link para cadastro -->
+    <p class="link-rodape">
+      Não tem conta?
+      <a href="#" (click)="irParaCadastro(); $event.preventDefault()">Cadastre-se</a>
+    </p>
+
+  </mat-card>
+
+  <!-- TELA DE CADASTRO-->
+  <mat-card *ngIf="tela === 'cadastro'" class="card-cadastro">
+
+    <p class="titulo-cadastro">Cadastro</p>
+
+    <!-- Campo Nome -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="nome" name="nome" />
+    </mat-form-field>
+
+    <!-- Campo E-mail -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" [(ngModel)]="emailCadastro" name="emailCadastro" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" [(ngModel)]="senha" name="senha" placeholder="••••••" />
+    </mat-form-field>
+
+    <!-- Campo Cargo -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Cargo</mat-label>
+      <mat-select [(ngModel)]="cargo" name="cargo">
+        <mat-option *ngFor="let c of cargos" [value]="c">{{ c }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <button mat-flat-button color="primary" (click)="salvar()">Salvar</button>
+
+    <p class="link-rodape">
+      Já tem conta?
+      <a href="#" (click)="irParaLogin(); $event.preventDefault()">Entrar</a>
+    </p>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,48 @@
+<div class="pagina">
+
+  <h1>Dashboard</h1>
+  
+  <!-- Cards de resumo (KPIs) -->
+  <div class="cards-kpi">
+    <mat-card class="kpi">
+      <mat-icon>assignment</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ totalOrdens }}</span>
+        <span class="kpi-label">Total de Ordens</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>autorenew</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ emAndamento }}</span>
+        <span class="kpi-label">Em Andamento</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>hourglass_top</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ aguardando }}</span>
+        <span class="kpi-label">Aguardando</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>check_circle</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ concluidas }}</span>
+        <span class="kpi-label">Concluídas</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi">
+      <mat-icon>pause_circle</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ pausadas }}</span>
+        <span class="kpi-label">Pausadas</span>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

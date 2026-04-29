@@ -1,0 +1,66 @@
+.pagina {
+  padding: 28px 32px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+/* Card da tabela */
+mat-card {
+  border-radius: 10px;
+}
+
+/* Tabela */
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.tabela td {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+/* Badge de status */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-andamento { background: #dbeafe; color: #1d4ed8; }
+.badge-aguardando { background: #fef3c7; color: #92400e; }
+.badge-concluida { background: #d1fae5; color: #065f46; }
+.badge-pausada   { background: #f3f4f6; color: #6b7280; }
+
+/* Badge de prioridade */
+.prioridade {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.prioridade-alta  { background: #fee2e2; color: #b91c1c; }
+.prioridade-media { background: #fef3c7; color: #92400e; }
+.prioridade-baixa { background: #f3f4f6; color: #6b7280; }

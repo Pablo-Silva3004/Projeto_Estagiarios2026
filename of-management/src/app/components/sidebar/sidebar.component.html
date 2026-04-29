@@ -1,0 +1,26 @@
+<aside class="sidebar">
+
+  <div class="sidebar-titulo">
+    <i class="fa-solid fa-gears icone-logo"></i>
+    <span>OF Manager</span>
+  </div>
+
+  <!-- Links de navegação principal -->
+  <nav class="sidebar-nav">
+    <a *ngFor="let link of links" [routerLink]="link.rota" routerLinkActive="ativo" class="link">
+      <mat-icon class="link-icone">{{ link.icone }}</mat-icon>
+      <span class="link-label">{{ link.label }}</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-espaco"></div>
+
+  <!-- Rodapé: botão de sair -->
+  <div class="sidebar-rodape">
+    <button mat-button class="btn-sair" (click)="sair()">
+      <mat-icon>logout</mat-icon>
+      <span>Sair</span>
+    </button>
+  </div>
+
+</aside>
