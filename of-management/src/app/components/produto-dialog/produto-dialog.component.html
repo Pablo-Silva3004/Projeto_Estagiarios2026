@@ -1,0 +1,59 @@
+<div class="dialog-cabecalho">
+  <div class="dialog-cabecalho-esquerda">
+    <i class="fa-solid fa-box icone-titulo"></i>
+    <div>
+      <h2 class="dialog-titulo">{{ isNovo ? 'Novo Produto' : 'Editar Produto' }}</h2>
+      <p class="dialog-subtitulo">{{ isNovo ? 'Preencha os dados do produto' : produto.nome }}</p>
+    </div>
+  </div>
+  <button mat-icon-button mat-dialog-close class="btn-fechar">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="conteudo-dialog">
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Nome do Produto</mat-label>
+    <input matInput [(ngModel)]="produto.nome" name="nome" />
+  </mat-form-field>
+
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Categoria</mat-label>
+      <mat-select [(ngModel)]="produto.categoria" name="categoria">
+        <mat-option *ngFor="let c of categorias" [value]="c">{{ c }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Unidade de Medida</mat-label>
+      <mat-select [(ngModel)]="produto.unidade_medida" name="unidade_medida">
+        <mat-option *ngFor="let u of unidades" [value]="u">{{ u }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Descrição</mat-label>
+    <input matInput [(ngModel)]="produto.descricao" name="descricao" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Preço de Referência (R$)</mat-label>
+    <input matInput [(ngModel)]="produto.preco_referencia" name="preco_referencia" placeholder="0,00" />
+  </mat-form-field>
+
+  <div class="toggle-row">
+    <span class="toggle-label">Produto ativo</span>
+    <mat-slide-toggle [(ngModel)]="produto.ativo" color="primary"></mat-slide-toggle>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-acoes">
+  <button mat-stroked-button (click)="fechar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="fechar()">
+    <mat-icon>save</mat-icon>
+    Salvar
+  </button>
+</mat-dialog-actions>

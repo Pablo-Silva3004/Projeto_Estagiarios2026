@@ -1,4 +1,4 @@
-/* Cabeçalho do dialog */
+/* Cabeçalho */
 .dialog-cabecalho {
   display: flex;
   align-items: center;
@@ -8,70 +8,134 @@
   background-color: #fafbff;
 }
 
-.dialog-cabecalho-esquerda {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.dialog-cabecalho-esquerda { display: flex; align-items: center; gap: 12px; }
 
-.icone-titulo {
-  font-size: 20px;
-  color: #1565c0;
-  opacity: 0.85;
-}
+.icone-titulo { font-size: 20px; color: #1565c0; opacity: 0.85; }
 
-.dialog-titulo {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0;
-}
+.dialog-titulo { font-size: 16px; font-weight: 700; color: #1a1a2e; margin: 0; }
+.dialog-subtitulo { font-size: 12px; color: #6b7280; margin: 2px 0 0; font-weight: 500; }
 
-.dialog-subtitulo {
-  font-size: 12px;
-  color: #6b7280;
-  margin: 2px 0 0;
-  font-weight: 500;
-}
+.btn-fechar { color: #9ca3af !important; }
 
-.btn-fechar {
-  color: #9ca3af !important;
-}
-
-/* Corpo do dialog */
+/* Corpo */
 .conteudo-dialog {
   display: flex;
   flex-direction: column;
   gap: 2px;
   padding: 20px 24px 8px !important;
-  min-width: 540px;
-  max-height: 65vh;
+  max-height: 72vh;
 }
 
-/* Linha com dois campos lado a lado */
-.linha-dupla {
+/* Seções */
+.secao-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0 4px;
+}
+
+/* Layouts */
+.linha-dupla { display: flex; gap: 14px; }
+.campo { flex: 1; }
+.campo-cheio { width: 100%; }
+
+/* Seção itens */
+.secao-itens-header {
   display: flex;
-  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 0 8px;
 }
 
-.campo {
-  flex: 1;
+.btn-add-item {
+  font-size: 12px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #1565c0;
+  border-color: #1565c0;
 }
 
-/* Campo que ocupa a linha toda */
-.campo-cheio {
+.btn-add-item mat-icon { font-size: 16px; width: 16px; height: 16px; }
+
+/* Tabela de itens */
+.tabela-itens {
   width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
 }
 
-/* Rodapé com botões */
+.tabela-itens th {
+  text-align: left;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 2px solid #f0f2f5;
+  white-space: nowrap;
+}
+
+.tabela-itens td {
+  padding: 4px 6px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.tabela-itens tr:last-child td { border-bottom: none; }
+
+/* Campos dentro da tabela */
+.campo-item { width: 200px; }
+.campo-num  { width: 90px; }
+
+/* Override para campos dentro de td (compactos) */
+.tabela-itens .mat-mdc-form-field {
+  --mat-form-field-container-height: 40px;
+}
+
+.subtotal-cell {
+  font-family: monospace;
+  font-size: 12px;
+  color: #374151;
+  white-space: nowrap;
+  padding-right: 8px;
+}
+
+.btn-remover { color: #ef4444 !important; }
+
+/* Total */
+.itens-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px 8px 4px;
+  border-top: 2px solid #f0f2f5;
+  margin-top: 8px;
+}
+
+.total-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.total-valor {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  font-family: monospace;
+}
+
+/* Ações */
 .dialog-acoes {
   padding: 12px 24px 18px !important;
   border-top: 1px solid #f0f2f5;
   gap: 10px;
-}
-
-.dialog-acoes button[mat-flat-button] {
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }

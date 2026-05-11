@@ -1,66 +1,79 @@
-.pagina {
-  padding: 28px 32px;
+.pagina { padding: 28px 32px; }
+
+.pagina-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-h1 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 10px;
-}
+h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+.subtitulo { font-size: 13px; color: #6b7280; }
 
-/* Card da tabela */
-mat-card {
-  border-radius: 10px;
-}
+.btn-novo { display: flex; align-items: center; gap: 6px; }
 
-/* Tabela */
-.tabela {
-  width: 100%;
-  border-collapse: collapse;
-}
+mat-card { border-radius: 10px; padding: 0; overflow: hidden; }
+
+.tabela { width: 100%; border-collapse: collapse; }
 
 .tabela th {
   text-align: left;
-  padding: 10px 14px;
-  font-size: 12px;
+  padding: 11px 13px;
+  font-size: 11px;
   font-weight: 600;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 2px solid #f0f2f5;
+  white-space: nowrap;
 }
 
 .tabela td {
-  padding: 12px 14px;
-  font-size: 14px;
+  padding: 12px 13px;
+  font-size: 13px;
   color: #374151;
   border-bottom: 1px solid #f5f5f5;
+  vertical-align: middle;
 }
 
-/* Badge de status */
+.tabela tr:last-child td { border-bottom: none; }
+
+.numero-ordem {
+  font-family: monospace;
+  font-size: 12px;
+  background: #f0f2f5;
+  padding: 3px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.fornecedor-cell { font-weight: 500; color: #1a1a2e; }
+
+.chip-unidade {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.data-cell { font-size: 12px; color: #6b7280; white-space: nowrap; }
+.valor-cell { font-family: monospace; font-size: 12px; white-space: nowrap; }
+.sem-dado { color: #d1d5db; }
+
 .badge {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-.badge-andamento { background: #dbeafe; color: #1d4ed8; }
-.badge-aguardando { background: #fef3c7; color: #92400e; }
-.badge-concluida { background: #d1fae5; color: #065f46; }
-.badge-pausada   { background: #f3f4f6; color: #6b7280; }
-
-/* Badge de prioridade */
-.prioridade {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.prioridade-alta  { background: #fee2e2; color: #b91c1c; }
-.prioridade-media { background: #fef3c7; color: #92400e; }
-.prioridade-baixa { background: #f3f4f6; color: #6b7280; }
+.badge-pendente  { background: #fef3c7; color: #92400e; }
+.badge-aprovada  { background: #d1fae5; color: #065f46; }
+.badge-enviada   { background: #dbeafe; color: #1d4ed8; }
+.badge-recebida  { background: #ccfbf1; color: #0f766e; }
+.badge-cancelada { background: #f3f4f6; color: #6b7280; }

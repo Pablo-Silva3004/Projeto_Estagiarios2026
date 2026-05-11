@@ -1,10 +1,12 @@
 <div class="pagina">
 
   <h1>Dashboard</h1>
-  
-  <!-- Cards de resumo (KPIs) -->
+  <p class="subtitulo">Visão geral das Ordens de Fornecimento</p>
+
+  <!-- ── KPI Cards ─────────────────────────────── -->
   <div class="cards-kpi">
-    <mat-card class="kpi">
+
+    <mat-card class="kpi kpi-total">
       <mat-icon>assignment</mat-icon>
       <div class="kpi-info">
         <span class="kpi-valor">{{ totalOrdens }}</span>
@@ -12,37 +14,131 @@
       </div>
     </mat-card>
 
-    <mat-card class="kpi">
-      <mat-icon>autorenew</mat-icon>
-      <div class="kpi-info">
-        <span class="kpi-valor">{{ emAndamento }}</span>
-        <span class="kpi-label">Em Andamento</span>
-      </div>
-    </mat-card>
-
-    <mat-card class="kpi">
+    <mat-card class="kpi kpi-pendente">
       <mat-icon>hourglass_top</mat-icon>
       <div class="kpi-info">
-        <span class="kpi-valor">{{ aguardando }}</span>
-        <span class="kpi-label">Aguardando</span>
+        <span class="kpi-valor">{{ pendente }}</span>
+        <span class="kpi-label">Pendente</span>
       </div>
     </mat-card>
 
-    <mat-card class="kpi">
+    <mat-card class="kpi kpi-aprovada">
+      <mat-icon>thumb_up</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ aprovada }}</span>
+        <span class="kpi-label">Aprovada</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi kpi-enviada">
+      <mat-icon>local_shipping</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ enviada }}</span>
+        <span class="kpi-label">Enviada</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi kpi-recebida">
       <mat-icon>check_circle</mat-icon>
       <div class="kpi-info">
-        <span class="kpi-valor">{{ concluidas }}</span>
-        <span class="kpi-label">Concluídas</span>
+        <span class="kpi-valor">{{ recebida }}</span>
+        <span class="kpi-label">Recebida</span>
       </div>
     </mat-card>
 
-    <mat-card class="kpi">
-      <mat-icon>pause_circle</mat-icon>
+    <mat-card class="kpi kpi-cancelada">
+      <mat-icon>cancel</mat-icon>
       <div class="kpi-info">
-        <span class="kpi-valor">{{ pausadas }}</span>
-        <span class="kpi-label">Pausadas</span>
+        <span class="kpi-valor">{{ cancelada }}</span>
+        <span class="kpi-label">Cancelada</span>
+      </div>
+    </mat-card>
+
+  </div>
+
+  <!-- ── Cards de Resumo Secundários ───────────── -->
+  <div class="cards-resumo">
+    <mat-card class="card-resumo">
+      <mat-icon>store</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ totalFornecedores }}</span>
+        <span class="kpi-label">Fornecedores Ativos</span>
+      </div>
+    </mat-card>
+    <mat-card class="card-resumo">
+      <mat-icon>inventory_2</mat-icon>
+      <div class="kpi-info">
+        <span class="kpi-valor">{{ totalProdutos }}</span>
+        <span class="kpi-label">Produtos no Catálogo</span>
       </div>
     </mat-card>
   </div>
+
+  <!-- ── Gráficos ───────────────────────────────── -->
+  <div class="linha-graficos">
+
+    <mat-card class="card-grafico card-donut">
+      <div class="card-header">
+        <h2>Ordens por Status</h2>
+        <span class="badge-periodo">Geral</span>
+      </div>
+      <div class="grafico-wrapper">
+        <canvas #chartStatus></canvas>
+      </div>
+    </mat-card>
+
+    <mat-card class="card-grafico card-barras">
+      <div class="card-header">
+        <h2>Histórico Mensal</h2>
+        <span class="badge-periodo">Últimos 6 meses</span>
+      </div>
+      <div class="grafico-wrapper">
+        <canvas #chartMensal></canvas>
+      </div>
+    </mat-card>
+
+  </div>
+
+  <!-- ── Tabela de últimas ordens ──────────────── -->
+  <mat-card class="card-tabela">
+    <div class="card-header">
+      <h2>Últimas Ordens de Fornecimento</h2>
+      <a routerLink="/orders" mat-button color="primary" class="ver-todas">
+        <mat-icon>arrow_forward</mat-icon> Ver todas
+      </a>
+    </div>
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nº Ordem</th>
+          <th>Fornecedor</th>
+          <th>Unidade</th>
+          <th>Solicitante</th>
+          <th>Status</th>
+          <th>Valor Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of ultimasOrdens">
+          <td><span class="numero-ordem">{{ o.numero }}</span></td>
+          <td>{{ o.fornecedor }}</td>
+          <td><span class="chip-unidade">{{ o.unidade }}</span></td>
+          <td>{{ o.solicitante }}</td>
+          <td>
+            <span class="badge"
+              [class.badge-pendente]="o.status === 'PENDENTE'"
+              [class.badge-aprovada]="o.status === 'APROVADA'"
+              [class.badge-enviada]="o.status === 'ENVIADA'"
+              [class.badge-recebida]="o.status === 'RECEBIDA'"
+              [class.badge-cancelada]="o.status === 'CANCELADA'">
+              {{ o.status }}
+            </span>
+          </td>
+          <td class="valor-cell">{{ o.valor }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card>
 
 </div>

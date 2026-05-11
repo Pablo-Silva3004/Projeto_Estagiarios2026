@@ -17,11 +17,12 @@ import { AuthService } from '../../services/auth.service';
 export class SidebarComponent {
   // Links de navegação da sidebar
   links = [
-    { icone: 'dashboard',   label: 'Dashboard',            rota: '/dashboard' },
-    { icone: 'assignment',  label: 'Ordens de Fabricação', rota: '/orders'    },
-    { icone: 'inventory_2', label: 'Produtos',             rota: '/products'  },
-    { icone: 'people',      label: 'Equipe',               rota: '/team'      },
-    { icone: 'settings',    label: 'Meu Perfil',           rota: '/settings'  },
+    { icone: 'dashboard',       label: 'Dashboard',              rota: '/dashboard'    },
+    { icone: 'assignment',      label: 'Ordens',                 rota: '/orders'       },
+    { icone: 'store',           label: 'Fornecedores',           rota: '/fornecedores' },
+    { icone: 'inventory_2',     label: 'Produtos',               rota: '/products'     },
+    { icone: 'manage_accounts', label: 'Usuários',               rota: '/team'         },
+    { icone: 'account_circle',  label: 'Meu Perfil',             rota: '/settings'     },
   ];
 
   constructor(private authService: AuthService, private router: Router) {}

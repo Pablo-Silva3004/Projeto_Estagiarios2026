@@ -12,11 +12,12 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./usuario.component.css'],
 })
 export class UsuarioComponent {
+  // Dados alinhados às tabelas usuario + unidade
   usuario = {
-    nome: 'Gustavo',
-    email: 'gustavo@empresa.com',
-    cargo: 'ADM',
-    departamento: 'ADM',
-    telefone: '(11) 91098-7654',
+    nome:     'Gustavo',
+    email:    'gustavo@empresa.com',
+    perfil:   'ADMIN',
+    unidade:  'TI',
+    ativo:    true,
   };
 }

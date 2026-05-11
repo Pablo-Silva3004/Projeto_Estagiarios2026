@@ -1,0 +1,53 @@
+<div class="pagina">
+
+  <div class="pagina-header">
+    <div>
+      <h1>Fornecedores</h1>
+      <p class="subtitulo">Cadastro de fornecedores vinculados às ordens de fornecimento</p>
+    </div>
+    <button mat-flat-button color="primary" class="btn-novo" (click)="abrirNovo()">
+      <mat-icon>add</mat-icon>
+      Novo Fornecedor
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Endereço</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let f of fornecedores">
+            <td class="id-cell">{{ f.id_fornecedor }}</td>
+            <td class="nome-cell">{{ f.nome }}</td>
+            <td class="cnpj-cell">{{ f.cnpj }}</td>
+            <td>{{ f.telefone }}</td>
+            <td class="email-cell">{{ f.email }}</td>
+            <td class="endereco-cell">{{ f.endereco }}</td>
+            <td>
+              <span class="badge-status" [class.badge-ativo]="f.ativo" [class.badge-inativo]="!f.ativo">
+                {{ f.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td>
+              <button mat-icon-button color="primary" (click)="abrirEdicao(f)" title="Editar fornecedor">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+</div>

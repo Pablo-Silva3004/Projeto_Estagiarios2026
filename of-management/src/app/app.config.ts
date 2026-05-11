@@ -7,7 +7,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
 
     provideRouter([
-      // Rota raiz redireciona para login
       { path: '', redirectTo: 'login', pathMatch: 'full' },
 
       {
@@ -15,8 +14,6 @@ export const appConfig: ApplicationConfig = {
         loadComponent: () =>
           import('./pages/auth/auth.component').then(m => m.AuthComponent),
       },
-
-      // Rotas protegidas (precisa estar logado)
       {
         path: 'dashboard',
         loadComponent: () =>
@@ -26,6 +23,11 @@ export const appConfig: ApplicationConfig = {
         path: 'orders',
         loadComponent: () =>
           import('./pages/orders/orders.component').then(m => m.OrdersComponent),
+      },
+      {
+        path: 'fornecedores',
+        loadComponent: () =>
+          import('./pages/fornecedores/fornecedores.component').then(m => m.FornecedoresComponent),
       },
       {
         path: 'products',
@@ -42,7 +44,6 @@ export const appConfig: ApplicationConfig = {
         loadComponent: () =>
           import('./pages/usuario/usuario.component').then(m => m.UsuarioComponent),
       },
-
     ]),
   ],
 };

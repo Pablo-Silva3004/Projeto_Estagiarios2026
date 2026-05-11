@@ -1,38 +1,55 @@
-<div class="mat-elevation-z8">
+<div class="pagina">
 
-  <h1>Produtos</h1>
-  <table class="tabela" mat-table [dataSource]="dataSource">
+  <div class="pagina-header">
+    <div>
+      <h1>Produtos</h1>
+      <p class="subtitulo">Catálogo de produtos disponíveis para solicitação</p>
+    </div>
+    <button mat-flat-button color="primary" class="btn-novo" (click)="abrirNovo()">
+      <mat-icon>add</mat-icon>
+      Novo Produto
+    </button>
+  </div>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> Código. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
+  <mat-card>
+    <mat-card-content>
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Unid. Medida</th>
+            <th>Preço Ref.</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of produtos">
+            <td class="id-cell">{{ p.id_produto }}</td>
+            <td class="nome-cell">{{ p.nome }}</td>
+            <td>
+              <span class="chip-categoria">{{ p.categoria }}</span>
+            </td>
+            <td class="descricao-cell">{{ p.descricao }}</td>
+            <td class="unidade-cell">{{ p.unidade_medida }}</td>
+            <td class="preco-cell">{{ p.preco_referencia }}</td>
+            <td>
+              <span class="badge-status" [class.badge-ativo]="p.ativo" [class.badge-inativo]="!p.ativo">
+                {{ p.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td>
+              <button mat-icon-button color="primary" (click)="abrirEdicao(p)" title="Editar produto">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nome </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
 </div>

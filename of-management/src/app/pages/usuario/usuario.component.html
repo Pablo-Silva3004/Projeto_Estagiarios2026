@@ -1,55 +1,83 @@
 <div class="pagina">
 
   <h1>Meu Perfil</h1>
+  <p class="subtitulo">Informações do usuário logado no sistema</p>
 
-  <mat-card class="card-perfil">
-    <mat-card-content>
+  <div class="layout-perfil">
 
-      <div class="info-linha">
-        <mat-icon>person</mat-icon>
-        <div>
-          <span class="info-rotulo">Nome</span>
-          <span class="info-valor">{{ usuario.nome }}</span>
+    <!-- Card de avatar -->
+    <mat-card class="card-avatar">
+      <div class="avatar-container">
+        <div class="avatar"
+          [class.avatar-admin]="usuario.perfil === 'ADMIN'"
+          [class.avatar-aprovador]="usuario.perfil === 'APROVADOR'"
+          [class.avatar-solicitante]="usuario.perfil === 'SOLICITANTE'">
+          {{ usuario.nome.charAt(0) }}
         </div>
+        <span class="usuario-nome">{{ usuario.nome }}</span>
+        <span class="badge-perfil"
+          [class.perfil-admin]="usuario.perfil === 'ADMIN'"
+          [class.perfil-aprovador]="usuario.perfil === 'APROVADOR'"
+          [class.perfil-solicitante]="usuario.perfil === 'SOLICITANTE'">
+          {{ usuario.perfil }}
+        </span>
+        <span class="badge-status" [class.badge-ativo]="usuario.ativo">
+          {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+        </span>
       </div>
-      <mat-divider></mat-divider>
+    </mat-card>
 
-      <div class="info-linha">
-        <mat-icon>email</mat-icon>
-        <div>
-          <span class="info-rotulo">E-mail</span>
-          <span class="info-valor">{{ usuario.email }}</span>
+    <!-- Card de detalhes -->
+    <mat-card class="card-detalhes">
+      <mat-card-content>
+
+        <div class="info-linha">
+          <mat-icon>person</mat-icon>
+          <div>
+            <span class="info-rotulo">Nome</span>
+            <span class="info-valor">{{ usuario.nome }}</span>
+          </div>
         </div>
-      </div>
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-      <div class="info-linha">
-        <mat-icon>work</mat-icon>
-        <div>
-          <span class="info-rotulo">Cargo</span>
-          <span class="info-valor">{{ usuario.cargo }}</span>
+        <div class="info-linha">
+          <mat-icon>email</mat-icon>
+          <div>
+            <span class="info-rotulo">E-mail</span>
+            <span class="info-valor">{{ usuario.email }}</span>
+          </div>
         </div>
-      </div>
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-      <div class="info-linha">
-        <mat-icon>business</mat-icon>
-        <div>
-          <span class="info-rotulo">Departamento</span>
-          <span class="info-valor">{{ usuario.departamento }}</span>
+        <div class="info-linha">
+          <mat-icon>shield</mat-icon>
+          <div>
+            <span class="info-rotulo">Perfil de Acesso</span>
+            <span class="info-valor">{{ usuario.perfil }}</span>
+          </div>
         </div>
-      </div>
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-      <div class="info-linha">
-        <mat-icon>phone</mat-icon>
-        <div>
-          <span class="info-rotulo">Telefone</span>
-          <span class="info-valor">{{ usuario.telefone }}</span>
+        <div class="info-linha">
+          <mat-icon>corporate_fare</mat-icon>
+          <div>
+            <span class="info-rotulo">Unidade</span>
+            <span class="info-valor">{{ usuario.unidade }}</span>
+          </div>
         </div>
-      </div>
+        <mat-divider></mat-divider>
 
-    </mat-card-content>
-  </mat-card>
+        <div class="info-linha">
+          <mat-icon>toggle_on</mat-icon>
+          <div>
+            <span class="info-rotulo">Status</span>
+            <span class="info-valor">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</span>
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
 
 </div>

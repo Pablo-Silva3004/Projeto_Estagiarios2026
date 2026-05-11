@@ -27,44 +27,13 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
-  // Controla qual tela está visível: 'login' ou 'cadastro'
-  tela: 'login' | 'cadastro' = 'login';
-
-  // Campos do formulário de login
   email = '';
   senha = '';
 
-  // Campos do formulário de cadastro
-  nome = '';
-  emailCadastro = '';
-  senhaCadastro = '';
-  cargo = '';
-
-
-  // Opções dos selects de cadastro
-  cargos = ['Operador', 'Supervisor', 'Engenheiro', 'Analista', 'Gerente'];
-
-
   constructor(private router: Router, private authService: AuthService) {}
 
-  // Ao clicar em "Entrar", faz login e vai para o dashboard
   entrar() {
     this.authService.login();
     this.router.navigate(['/dashboard']);
-  }
-
-  // Ao clicar em "Salvar" no cadastro, salva e vai para o dashboard
-  salvar() {
-    this.authService.login();
-    this.router.navigate(['/dashboard']);
-  }
-
-  // Alterna entre as telas de login e cadastro
-  irParaCadastro() {
-    this.tela = 'cadastro';
-  }
-
-  irParaLogin() {
-    this.tela = 'login';
   }
 }

@@ -1,0 +1,60 @@
+<div class="dialog-cabecalho">
+  <div class="dialog-cabecalho-esquerda">
+    <i class="fa-solid fa-user icone-titulo"></i>
+    <div>
+      <h2 class="dialog-titulo">{{ isNovo ? 'Novo Usuário' : 'Editar Usuário' }}</h2>
+      <p class="dialog-subtitulo">{{ isNovo ? 'Preencha os dados do usuário' : usuario.nome }}</p>
+    </div>
+  </div>
+  <button mat-icon-button mat-dialog-close class="btn-fechar">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="conteudo-dialog">
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Nome Completo</mat-label>
+    <input matInput [(ngModel)]="usuario.nome" name="nome" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>E-mail</mat-label>
+    <input matInput type="email" [(ngModel)]="usuario.email" name="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Senha</mat-label>
+    <input matInput type="password" name="senha" placeholder="••••••••" />
+    <mat-hint *ngIf="!isNovo">Deixe em branco para não alterar</mat-hint>
+  </mat-form-field>
+
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Unidade</mat-label>
+      <mat-select [(ngModel)]="usuario.unidade" name="unidade">
+        <mat-option *ngFor="let u of unidades" [value]="u">{{ u }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Perfil</mat-label>
+      <mat-select [(ngModel)]="usuario.perfil" name="perfil">
+        <mat-option *ngFor="let p of perfis" [value]="p">{{ p }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="toggle-row">
+    <span class="toggle-label">Usuário ativo</span>
+    <mat-slide-toggle [(ngModel)]="usuario.ativo" color="primary"></mat-slide-toggle>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-acoes">
+  <button mat-stroked-button (click)="fechar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="fechar()">
+    <mat-icon>save</mat-icon>
+    Salvar
+  </button>
+</mat-dialog-actions>

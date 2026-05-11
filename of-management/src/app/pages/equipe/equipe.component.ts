@@ -1,41 +1,61 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
+import { UsuarioDialogComponent } from '../../components/usuario-dialog/usuario-dialog.component';
+
+export type PerfilUsuario = 'ADMIN' | 'SOLICITANTE' | 'APROVADOR';
+
+// Modelo alinhado às tabelas usuario + unidade
+export interface UsuarioSistema {
+  id_usuario: number;
+  nome:        string;
+  email:       string;
+  unidade:     string;  // unidade.nome
+  perfil:      PerfilUsuario;
+  ativo:        boolean;
+}
 
 @Component({
-  selector: 'app-produtos',
+  selector: 'app-equipe',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatDialogModule],
   templateUrl: './equipe.component.html',
   styleUrls: ['./equipe.component.css'],
 })
-export class equipeComponents implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class equipeComponents {
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  unidades = ['TI', 'RH', 'Financeiro', 'Operações', 'Marketing'];
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  usuarios: UsuarioSistema[] = [
+    { id_usuario: 1, nome: 'Gustavo',  email: 'gustavo@empresa.com',  unidade: 'TI',         perfil: 'ADMIN',       ativo: true  },
+    { id_usuario: 2, nome: 'Pablo',    email: 'pablo@empresa.com',    unidade: 'TI',         perfil: 'SOLICITANTE', ativo: true  },
+    { id_usuario: 3, nome: 'Cintia',   email: 'cintia@empresa.com',   unidade: 'Financeiro', perfil: 'SOLICITANTE', ativo: true  },
+    { id_usuario: 4, nome: 'Mayara',   email: 'mayara@empresa.com',   unidade: 'RH',         perfil: 'APROVADOR',   ativo: true  },
+    { id_usuario: 5, nome: 'Matheus',  email: 'matheus@empresa.com',  unidade: 'TI',         perfil: 'APROVADOR',   ativo: true  },
+    { id_usuario: 6, nome: 'Vinicius', email: 'vinicius@empresa.com', unidade: 'Operações',  perfil: 'SOLICITANTE', ativo: true  },
+    { id_usuario: 7, nome: 'Ezequiel', email: 'ezequiel@empresa.com', unidade: 'Operações',  perfil: 'SOLICITANTE', ativo: false },
+  ];
+
+  constructor(private dialog: MatDialog) {}
+
+  abrirEdicao(u: UsuarioSistema) {
+    this.dialog.open(UsuarioDialogComponent, {
+      width: '560px',
+      data: { usuario: { ...u }, unidades: this.unidades },
+    });
+  }
+
+  abrirNovo() {
+    const novo: UsuarioSistema = {
+      id_usuario: 0, nome: '', email: '', unidade: '', perfil: 'SOLICITANTE', ativo: true,
+    };
+    this.dialog.open(UsuarioDialogComponent, {
+      width: '560px',
+      data: { usuario: novo, unidades: this.unidades },
+    });
   }
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  funcao: string;
-  status: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Gustavo', funcao: 'Adm', status: 'Ativo'},
-  {position: 2, name: 'Pablo', funcao: 'Adm', status: 'Ativo'},
-  {position: 3, name: 'Cintia', funcao: 'Adm', status: 'Ativo'},
-  {position: 4, name: 'Mayara', funcao: 'Supervisor', status: 'Ativo'},
-  {position: 5, name: 'Matheus', funcao: 'Supervisor', status: 'Ativo'},
-  {position: 6, name: 'Caua', funcao: 'Supervisor', status: 'Inativo'},
-  {position: 7, name: 'Vinicius', funcao: 'Supervisor', status: 'Inativo'},
-  {position: 8, name: 'Ezequiel', funcao: 'Supervisor', status: 'Ativo'},
-  
-];
