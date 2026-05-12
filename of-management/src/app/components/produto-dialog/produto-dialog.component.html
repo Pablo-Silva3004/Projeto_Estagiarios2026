@@ -40,7 +40,7 @@
 
   <mat-form-field appearance="outline" class="campo-cheio">
     <mat-label>Preço de Referência (R$)</mat-label>
-    <input matInput [(ngModel)]="produto.preco_referencia" name="preco_referencia" placeholder="0,00" />
+    <input matInput type="number" [(ngModel)]="produto.preco_referencia" name="preco_referencia" placeholder="0.00" />
   </mat-form-field>
 
   <div class="toggle-row">
@@ -52,7 +52,7 @@
 
 <mat-dialog-actions align="end" class="dialog-acoes">
   <button mat-stroked-button (click)="fechar()">Cancelar</button>
-  <button mat-flat-button color="primary" (click)="fechar()">
+  <button mat-flat-button color="primary" (click)="salvar()">
     <mat-icon>save</mat-icon>
     Salvar
   </button>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,17 +6,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { UsuarioDialogComponent } from '../../components/usuario-dialog/usuario-dialog.component';
+import { UsuarioService } from '../../services/usuario.service';
 
 export type PerfilUsuario = 'ADMIN' | 'SOLICITANTE' | 'APROVADOR';
 
-// Modelo alinhado às tabelas usuario + unidade
+// Modelo alinhado à tabela usuario
 export interface UsuarioSistema {
   id_usuario: number;
-  nome:        string;
-  email:       string;
-  unidade:     string;  // unidade.nome
-  perfil:      PerfilUsuario;
-  ativo:        boolean;
+  nome:       string;
+  email:      string;
+  perfil:     PerfilUsuario;
+  ativo:      boolean;
 }
 
 @Component({
@@ -26,36 +26,50 @@ export interface UsuarioSistema {
   templateUrl: './equipe.component.html',
   styleUrls: ['./equipe.component.css'],
 })
-export class equipeComponents {
+export class equipeComponents implements OnInit {
 
-  unidades = ['TI', 'RH', 'Financeiro', 'Operações', 'Marketing'];
+  usuarios: UsuarioSistema[] = [];
 
-  usuarios: UsuarioSistema[] = [
-    { id_usuario: 1, nome: 'Gustavo',  email: 'gustavo@empresa.com',  unidade: 'TI',         perfil: 'ADMIN',       ativo: true  },
-    { id_usuario: 2, nome: 'Pablo',    email: 'pablo@empresa.com',    unidade: 'TI',         perfil: 'SOLICITANTE', ativo: true  },
-    { id_usuario: 3, nome: 'Cintia',   email: 'cintia@empresa.com',   unidade: 'Financeiro', perfil: 'SOLICITANTE', ativo: true  },
-    { id_usuario: 4, nome: 'Mayara',   email: 'mayara@empresa.com',   unidade: 'RH',         perfil: 'APROVADOR',   ativo: true  },
-    { id_usuario: 5, nome: 'Matheus',  email: 'matheus@empresa.com',  unidade: 'TI',         perfil: 'APROVADOR',   ativo: true  },
-    { id_usuario: 6, nome: 'Vinicius', email: 'vinicius@empresa.com', unidade: 'Operações',  perfil: 'SOLICITANTE', ativo: true  },
-    { id_usuario: 7, nome: 'Ezequiel', email: 'ezequiel@empresa.com', unidade: 'Operações',  perfil: 'SOLICITANTE', ativo: false },
-  ];
+  constructor(
+    private dialog: MatDialog,
+    private usuarioService: UsuarioService,
+  ) {}
 
-  constructor(private dialog: MatDialog) {}
+  ngOnInit() {
+    this.carregarUsuarios();
+  }
+
+  carregarUsuarios() {
+    this.usuarioService.listarTodos().subscribe({
+      next: (dados) => this.usuarios = dados,
+      error: (err)  => console.error('Erro ao carregar usuários:', err),
+    });
+  }
 
   abrirEdicao(u: UsuarioSistema) {
-    this.dialog.open(UsuarioDialogComponent, {
+    const ref = this.dialog.open(UsuarioDialogComponent, {
       width: '560px',
-      data: { usuario: { ...u }, unidades: this.unidades },
+      data: { ...u },
     });
+    ref.afterClosed().subscribe(salvo => { if (salvo) this.carregarUsuarios(); });
   }
 
   abrirNovo() {
     const novo: UsuarioSistema = {
-      id_usuario: 0, nome: '', email: '', unidade: '', perfil: 'SOLICITANTE', ativo: true,
+      id_usuario: 0, nome: '', email: '', perfil: 'SOLICITANTE', ativo: true,
     };
-    this.dialog.open(UsuarioDialogComponent, {
+    const ref = this.dialog.open(UsuarioDialogComponent, {
       width: '560px',
-      data: { usuario: novo, unidades: this.unidades },
+      data: novo,
+    });
+    ref.afterClosed().subscribe(salvo => { if (salvo) this.carregarUsuarios(); });
+  }
+
+  deletar(id: number) {
+    if (!confirm('Tem certeza que deseja excluir este usuário?')) return;
+    this.usuarioService.deletar(id).subscribe({
+      next: () => this.carregarUsuarios(),
+      error: (err) => console.error('Erro ao deletar usuário:', err),
     });
   }
 }

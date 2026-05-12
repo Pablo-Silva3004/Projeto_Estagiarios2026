@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { Fornecedor } from '../../pages/fornecedores/fornecedores.component';
+import { FornecedorService } from '../../services/fornecedor.service';
 
 @Component({
   selector: 'app-fornecedor-dialog',
@@ -28,10 +29,24 @@ export class FornecedorDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) data: Fornecedor,
     private dialogRef: MatDialogRef<FornecedorDialogComponent>,
+    private fornecedorService: FornecedorService,
   ) {
     this.fornecedor = { ...data };
     this.isNovo = data.id_fornecedor === 0;
   }
 
-  fechar() { this.dialogRef.close(); }
+  // Chamado pelo botão "Salvar"
+  salvar() {
+    // Decide se é criação ou atualização
+    const operacao = this.isNovo
+      ? this.fornecedorService.criar(this.fornecedor)
+      : this.fornecedorService.atualizar(this.fornecedor);
+
+    operacao.subscribe({
+      next: () => this.dialogRef.close(true),  // fecha e sinaliza que houve mudança
+      error: (err) => console.error('Erro ao salvar fornecedor:', err),
+    });
+  }
+
+  fechar() { this.dialogRef.close(false); }
 }

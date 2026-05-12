@@ -36,13 +36,15 @@ public class FornecedorService {
 
     // Atualiza um fornecedor existente
     public Optional<Fornecedor> atualizar(Integer id, String nome, String cnpj,
-                                          String telefone, String email, String endereco) {
+                                          String telefone, String email, String endereco,
+                                          Boolean ativo) {
         return fornecedorRepository.findById(id).map(fornecedorExistente -> {
             fornecedorExistente.setNome(nome);
             fornecedorExistente.setCnpj(cnpj);
             fornecedorExistente.setTelefone(telefone);
             fornecedorExistente.setEmail(email);
             fornecedorExistente.setEndereco(endereco);
+            if (ativo != null) fornecedorExistente.setAtivo(ativo);
             return fornecedorRepository.save(fornecedorExistente);
         });
     }

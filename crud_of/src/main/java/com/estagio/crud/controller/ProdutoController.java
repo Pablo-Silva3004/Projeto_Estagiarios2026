@@ -46,7 +46,8 @@ public class ProdutoController {
     public ResponseEntity<Produto> atualizar(@PathVariable Integer id,
                                              @RequestBody ProdutoRequest request) {
         return produtoService.atualizar(id, request.categoriaId(), request.nome(),
-                        request.descricao(), request.unidadeMedida(), request.precoReferencia())
+                        request.descricao(), request.unidadeMedida(), request.precoReferencia(),
+                        request.ativo())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -61,5 +62,5 @@ public class ProdutoController {
     }
 
     record ProdutoRequest(Integer categoriaId, String nome, String descricao,
-                          String unidadeMedida, BigDecimal precoReferencia) {}
+                          String unidadeMedida, BigDecimal precoReferencia, Boolean ativo) {}
 }

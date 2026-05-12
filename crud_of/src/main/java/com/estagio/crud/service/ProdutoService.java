@@ -42,7 +42,7 @@ public class ProdutoService {
     // Atualiza um produto existente
     public Optional<Produto> atualizar(Integer id, Integer categoriaId, String nome,
                                        String descricao, String unidadeMedida,
-                                       BigDecimal precoReferencia) {
+                                       BigDecimal precoReferencia, Boolean ativo) {
         return produtoRepository.findById(id).flatMap(produtoExistente ->
             categoriaProdutoRepository.findById(categoriaId).map(categoria -> {
                 produtoExistente.setCategoria(categoria);
@@ -50,6 +50,7 @@ public class ProdutoService {
                 produtoExistente.setDescricao(descricao);
                 produtoExistente.setUnidadeMedida(unidadeMedida);
                 produtoExistente.setPrecoReferencia(precoReferencia != null ? precoReferencia : BigDecimal.ZERO);
+                if (ativo != null) produtoExistente.setAtivo(ativo);
                 return produtoRepository.save(produtoExistente);
             })
         );

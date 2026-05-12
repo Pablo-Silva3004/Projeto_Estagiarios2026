@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { UsuarioSistema } from '../../pages/equipe/equipe.component';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-usuario-dialog',
@@ -24,19 +25,30 @@ import { UsuarioSistema } from '../../pages/equipe/equipe.component';
 })
 export class UsuarioDialogComponent {
   usuario: UsuarioSistema;
-  unidades: string[];
   isNovo: boolean;
+  senha = '';
 
   perfis = ['ADMIN', 'SOLICITANTE', 'APROVADOR'];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: { usuario: UsuarioSistema; unidades: string[] },
+    @Inject(MAT_DIALOG_DATA) data: UsuarioSistema,
     private dialogRef: MatDialogRef<UsuarioDialogComponent>,
+    private usuarioService: UsuarioService,
   ) {
-    this.usuario  = { ...data.usuario };
-    this.unidades = data.unidades;
-    this.isNovo   = data.usuario.id_usuario === 0;
+    this.usuario = { ...data };
+    this.isNovo  = data.id_usuario === 0;
   }
 
-  fechar() { this.dialogRef.close(); }
+  salvar() {
+    const operacao = this.isNovo
+      ? this.usuarioService.criar(this.usuario, this.senha)
+      : this.usuarioService.atualizar(this.usuario, this.senha);
+
+    operacao.subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err) => console.error('Erro ao salvar usuário:', err),
+    });
+  }
+
+  fechar() { this.dialogRef.close(false); }
 }

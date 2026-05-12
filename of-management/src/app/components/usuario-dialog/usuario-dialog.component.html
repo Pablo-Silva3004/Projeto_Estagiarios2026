@@ -25,24 +25,16 @@
 
   <mat-form-field appearance="outline" class="campo-cheio">
     <mat-label>Senha</mat-label>
-    <input matInput type="password" name="senha" placeholder="••••••••" />
-    <mat-hint *ngIf="!isNovo">Deixe em branco para não alterar</mat-hint>
+    <input matInput type="password" [(ngModel)]="senha" name="senha" placeholder="••••••••" />
+    <mat-hint *ngIf="!isNovo">Deixe em branco para manter a senha atual</mat-hint>
   </mat-form-field>
 
-  <div class="linha-dupla">
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Unidade</mat-label>
-      <mat-select [(ngModel)]="usuario.unidade" name="unidade">
-        <mat-option *ngFor="let u of unidades" [value]="u">{{ u }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Perfil</mat-label>
-      <mat-select [(ngModel)]="usuario.perfil" name="perfil">
-        <mat-option *ngFor="let p of perfis" [value]="p">{{ p }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <mat-form-field appearance="outline" class="campo-cheio">
+    <mat-label>Perfil</mat-label>
+    <mat-select [(ngModel)]="usuario.perfil" name="perfil">
+      <mat-option *ngFor="let p of perfis" [value]="p">{{ p }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div class="toggle-row">
     <span class="toggle-label">Usuário ativo</span>
@@ -53,7 +45,7 @@
 
 <mat-dialog-actions align="end" class="dialog-acoes">
   <button mat-stroked-button (click)="fechar()">Cancelar</button>
-  <button mat-flat-button color="primary" (click)="fechar()">
+  <button mat-flat-button color="primary" (click)="salvar()">
     <mat-icon>save</mat-icon>
     Salvar
   </button>

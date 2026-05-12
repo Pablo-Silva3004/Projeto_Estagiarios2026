@@ -35,7 +35,7 @@
             </td>
             <td class="descricao-cell">{{ p.descricao }}</td>
             <td class="unidade-cell">{{ p.unidade_medida }}</td>
-            <td class="preco-cell">{{ p.preco_referencia }}</td>
+            <td class="preco-cell">{{ p.preco_referencia | currency:'BRL':'symbol':'1.2-2' }}</td>
             <td>
               <span class="badge-status" [class.badge-ativo]="p.ativo" [class.badge-inativo]="!p.ativo">
                 {{ p.ativo ? 'Ativo' : 'Inativo' }}
@@ -44,6 +44,9 @@
             <td>
               <button mat-icon-button color="primary" (click)="abrirEdicao(p)" title="Editar produto">
                 <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletar(p.id_produto)" title="Excluir produto">
+                <mat-icon>delete</mat-icon>
               </button>
             </td>
           </tr>

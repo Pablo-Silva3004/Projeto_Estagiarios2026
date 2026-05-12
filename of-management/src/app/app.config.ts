@@ -1,10 +1,12 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http'; // permite fazer chamadas HTTP para o backend
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
+    provideHttpClient(), // registra o HttpClient para todos os services poderem usar
 
     provideRouter([
       { path: '', redirectTo: 'login', pathMatch: 'full' },

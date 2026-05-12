@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { OrdemFornecimento, ItemOrdem } from '../../pages/orders/orders.component';
+import { OrdemService } from '../../services/ordem.service';
 
 @Component({
   selector: 'app-order-edit-dialog',
@@ -26,26 +27,26 @@ export class OrderEditDialogComponent {
 
   ordem: OrdemFornecimento;
 
-  statusOpcoes   = ['PENDENTE', 'APROVADA', 'ENVIADA', 'RECEBIDA', 'CANCELADA'];
-  fornecedores   = ['Tech Supplies Ltda', 'Office Pro', 'InfoNet', 'Papelaria Central', 'MobiDesk', 'Cleaning Pro', 'DataCenter Tech'];
-  unidades       = ['TI', 'RH', 'Financeiro', 'Operações', 'Marketing'];
-  produtosCatalog= ['Notebook Dell Inspiron 15', 'Monitor 24" Full HD', 'Mouse Óptico USB', 'Teclado Mecânico', 'Papel A4 500 folhas', 'Cadeira Executiva', 'Switch 24 Portas', 'Cabo de Rede Cat6'];
+  statusOpcoes = ['PENDENTE', 'APROVADA', 'ENVIADA', 'RECEBIDA', 'CANCELADA'];
 
-  // Itens estáticos da OF (alinhados à tabela ordem_item)
-  itens: ItemOrdem[] = [
-    { produto: 'Notebook Dell Inspiron 15', quantidade: 2, valor_unitario: 'R$ 3.500,00', quantidade_recebida: 0, subtotal: 'R$ 7.000,00' },
-    { produto: 'Mouse Óptico USB',          quantidade: 5, valor_unitario: 'R$    45,00', quantidade_recebida: 0, subtotal: 'R$   225,00' },
-    { produto: 'Monitor 24" Full HD',       quantidade: 1, valor_unitario: 'R$   950,00', quantidade_recebida: 0, subtotal: 'R$   950,00' },
-  ];
-
-  valorTotal = 'R$ 8.175,00';
+  // Itens da ordem (somente visualização — edição de itens fica para uma próxima versão)
+  itens: ItemOrdem[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: OrdemFornecimento,
     private dialogRef: MatDialogRef<OrderEditDialogComponent>,
+    private ordemService: OrdemService,
   ) {
     this.ordem = { ...data };
   }
 
-  fechar() { this.dialogRef.close(); }
+  // Salva apenas status e observação (campos editáveis no dialog atual)
+  salvar() {
+    this.ordemService.atualizar(this.ordem).subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err) => console.error('Erro ao salvar ordem:', err),
+    });
+  }
+
+  fechar() { this.dialogRef.close(false); }
 }

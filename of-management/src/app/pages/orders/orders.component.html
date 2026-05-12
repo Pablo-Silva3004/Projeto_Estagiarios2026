@@ -58,6 +58,9 @@
               <button mat-icon-button color="primary" (click)="abrirEdicao(o)" title="Visualizar / Editar">
                 <mat-icon>edit</mat-icon>
               </button>
+              <button mat-icon-button color="warn" (click)="deletar(o.id_ordem)" title="Excluir ordem">
+                <mat-icon>delete</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>

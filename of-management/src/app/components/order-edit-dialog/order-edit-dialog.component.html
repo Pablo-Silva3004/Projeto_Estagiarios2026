@@ -14,13 +14,13 @@
 
 <mat-dialog-content class="conteudo-dialog">
 
-  <!-- ── Seção 1: Identificação ─────────────────── -->
+  <!-- ── Seção 1: Identificação (somente leitura) ── -->
   <p class="secao-titulo">Identificação</p>
 
   <div class="linha-dupla">
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Nº da Ordem</mat-label>
-      <input matInput [(ngModel)]="ordem.numero_ordem" name="numero_ordem" />
+      <input matInput [value]="ordem.numero_ordem" readonly />
     </mat-form-field>
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Status</mat-label>
@@ -33,15 +33,22 @@
   <div class="linha-dupla">
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Fornecedor</mat-label>
-      <mat-select [(ngModel)]="ordem.fornecedor" name="fornecedor">
-        <mat-option *ngFor="let f of fornecedores" [value]="f">{{ f }}</mat-option>
-      </mat-select>
+      <input matInput [value]="ordem.fornecedor" readonly />
     </mat-form-field>
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Unidade Solicitante</mat-label>
-      <mat-select [(ngModel)]="ordem.unidade" name="unidade">
-        <mat-option *ngFor="let u of unidades" [value]="u">{{ u }}</mat-option>
-      </mat-select>
+      <input matInput [value]="ordem.unidade" readonly />
+    </mat-form-field>
+  </div>
+
+  <div class="linha-dupla">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Solicitante</mat-label>
+      <input matInput [value]="ordem.solicitante" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Aprovador</mat-label>
+      <input matInput [value]="ordem.aprovador || '—'" readonly />
     </mat-form-field>
   </div>
 
@@ -51,15 +58,15 @@
   <div class="linha-dupla">
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Data de Emissão</mat-label>
-      <input matInput [(ngModel)]="ordem.data_emissao" name="data_emissao" placeholder="dd/mm/aaaa" />
+      <input matInput [value]="ordem.data_emissao" readonly />
     </mat-form-field>
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Entrega Prevista</mat-label>
-      <input matInput [(ngModel)]="ordem.data_entrega_prevista" name="data_entrega_prevista" placeholder="dd/mm/aaaa" />
+      <input matInput [value]="ordem.data_entrega_prevista || '—'" readonly />
     </mat-form-field>
   </div>
 
-  <!-- ── Seção 3: Observação ────────────────────── -->
+  <!-- ── Seção 3: Observação (editável) ────────── -->
   <mat-form-field appearance="outline" class="campo-cheio">
     <mat-label>Observação</mat-label>
     <textarea matInput [(ngModel)]="ordem.observacao" name="observacao" rows="2"></textarea>
@@ -67,16 +74,13 @@
 
   <mat-divider></mat-divider>
 
-  <!-- ── Seção 4: Itens da Ordem ────────────────── -->
-  <div class="secao-itens-header">
-    <p class="secao-titulo" style="margin-bottom:0">Itens da Ordem</p>
-    <button mat-stroked-button class="btn-add-item">
-      <mat-icon>add</mat-icon>
-      Adicionar Item
-    </button>
-  </div>
+  <!-- ── Seção 4: Itens (somente visualização) ──── -->
+  <p class="secao-titulo" style="margin-top: 16px">Itens da Ordem</p>
+  <p *ngIf="itens.length === 0" style="color: #888; font-size: 0.85rem;">
+    Nenhum item carregado. A edição de itens será implementada em breve.
+  </p>
 
-  <table class="tabela-itens">
+  <table class="tabela-itens" *ngIf="itens.length > 0">
     <thead>
       <tr>
         <th>Produto</th>
@@ -84,55 +88,25 @@
         <th>Valor Unit.</th>
         <th>Qtd. Recebida</th>
         <th>Subtotal</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of itens">
-        <td>
-          <mat-form-field appearance="outline" class="campo-item">
-            <mat-select [(ngModel)]="item.produto" name="produto">
-              <mat-option *ngFor="let p of produtosCatalog" [value]="p">{{ p }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field appearance="outline" class="campo-num">
-            <input matInput type="number" [(ngModel)]="item.quantidade" name="qty" />
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field appearance="outline" class="campo-num">
-            <input matInput [(ngModel)]="item.valor_unitario" name="vunit" />
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field appearance="outline" class="campo-num">
-            <input matInput type="number" [(ngModel)]="item.quantidade_recebida" name="qrec" />
-          </mat-form-field>
-        </td>
+        <td>{{ item.produto }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.valor_unitario }}</td>
+        <td>{{ item.quantidade_recebida }}</td>
         <td class="subtotal-cell">{{ item.subtotal }}</td>
-        <td>
-          <button mat-icon-button class="btn-remover" title="Remover item">
-            <mat-icon>delete_outline</mat-icon>
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
-
-  <!-- Rodapé dos itens -->
-  <div class="itens-total">
-    <span class="total-label">Valor Total da Ordem</span>
-    <span class="total-valor">{{ valorTotal }}</span>
-  </div>
 
 </mat-dialog-content>
 
 <!-- Ações -->
 <mat-dialog-actions align="end" class="dialog-acoes">
   <button mat-stroked-button (click)="fechar()">Cancelar</button>
-  <button mat-flat-button color="primary" (click)="fechar()">
+  <button mat-flat-button color="primary" (click)="salvar()">
     <mat-icon>save</mat-icon>
     Salvar
   </button>

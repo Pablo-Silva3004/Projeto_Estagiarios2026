@@ -3,7 +3,7 @@
   <div class="pagina-header">
     <div>
       <h1>Usuários</h1>
-      <p class="subtitulo">Usuários do sistema com seus perfis e unidades</p>
+      <p class="subtitulo">Usuários do sistema com seus perfis de acesso</p>
     </div>
     <button mat-flat-button color="primary" class="btn-novo" (click)="abrirNovo()">
       <mat-icon>person_add</mat-icon>
@@ -19,7 +19,6 @@
             <th>#</th>
             <th>Nome</th>
             <th>E-mail</th>
-            <th>Unidade</th>
             <th>Perfil</th>
             <th>Status</th>
             <th>Ações</th>
@@ -40,7 +39,6 @@
               </div>
             </td>
             <td class="email-cell">{{ u.email }}</td>
-            <td><span class="chip-unidade">{{ u.unidade }}</span></td>
             <td>
               <span class="badge-perfil"
                 [class.perfil-admin]="u.perfil === 'ADMIN'"
@@ -57,6 +55,9 @@
             <td>
               <button mat-icon-button color="primary" (click)="abrirEdicao(u)" title="Editar usuário">
                 <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletar(u.id_usuario)" title="Excluir usuário">
+                <mat-icon>delete</mat-icon>
               </button>
             </td>
           </tr>

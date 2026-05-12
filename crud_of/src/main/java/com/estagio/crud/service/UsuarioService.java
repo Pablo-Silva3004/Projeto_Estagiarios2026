@@ -1,7 +1,6 @@
 package com.estagio.crud.service;
 
 import com.estagio.crud.model.Usuario;
-import com.estagio.crud.repository.UnidadeRepository;
 import com.estagio.crud.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,48 +13,38 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-    private final UnidadeRepository unidadeRepository;
 
-    // Busca todos os usuários
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
 
-    // Busca um usuário pelo ID
     public Optional<Usuario> buscarPorId(Integer id) {
         return usuarioRepository.findById(id);
     }
 
-    // Cria um novo usuário vinculando a unidade pelo ID
-    public Optional<Usuario> salvar(String nome, String email, String senha,
-                                    Integer unidadeId, Usuario.Perfil perfil) {
-        return unidadeRepository.findById(unidadeId).map(unidade -> {
-            Usuario usuario = new Usuario();
-            usuario.setNome(nome);
-            usuario.setEmail(email);
-            usuario.setSenha(senha);
-            usuario.setUnidade(unidade);
-            usuario.setPerfil(perfil);
-            return usuarioRepository.save(usuario);
-        });
+    // Cria um novo usuário (sem vínculo com unidade)
+    public Optional<Usuario> salvar(String nome, String email, String senha, Usuario.Perfil perfil) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
+        usuario.setPerfil(perfil);
+        return Optional.of(usuarioRepository.save(usuario));
     }
 
     // Atualiza um usuário existente
     public Optional<Usuario> atualizar(Integer id, String nome, String email,
-                                       String senha, Integer unidadeId, Usuario.Perfil perfil) {
-        return usuarioRepository.findById(id).flatMap(usuarioExistente ->
-            unidadeRepository.findById(unidadeId).map(unidade -> {
-                usuarioExistente.setNome(nome);
-                usuarioExistente.setEmail(email);
-                usuarioExistente.setSenha(senha);
-                usuarioExistente.setUnidade(unidade);
-                usuarioExistente.setPerfil(perfil);
-                return usuarioRepository.save(usuarioExistente);
-            })
-        );
+                                       String senha, Usuario.Perfil perfil, Boolean ativo) {
+        return usuarioRepository.findById(id).map(u -> {
+            u.setNome(nome);
+            u.setEmail(email);
+            u.setSenha(senha);
+            u.setPerfil(perfil);
+            if (ativo != null) u.setAtivo(ativo);
+            return usuarioRepository.save(u);
+        });
     }
 
-    // Deleta um usuário pelo ID
     public boolean deletar(Integer id) {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);

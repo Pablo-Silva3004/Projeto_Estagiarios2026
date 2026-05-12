@@ -44,7 +44,7 @@ public class FornecedorController {
     public ResponseEntity<Fornecedor> atualizar(@PathVariable Integer id,
                                                 @RequestBody FornecedorRequest request) {
         return fornecedorService.atualizar(id, request.nome(), request.cnpj(),
-                        request.telefone(), request.email(), request.endereco())
+                        request.telefone(), request.email(), request.endereco(), request.ativo())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -59,5 +59,5 @@ public class FornecedorController {
     }
 
     record FornecedorRequest(String nome, String cnpj, String telefone,
-                             String email, String endereco) {}
+                             String email, String endereco, Boolean ativo) {}
 }

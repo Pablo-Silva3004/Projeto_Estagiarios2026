@@ -21,7 +21,7 @@ public class UsuarioController {
         return usuarioService.listarTodos();
     }
 
-    // GET /usuarios/{id} → busca um usuário pelo ID
+    // GET /usuarios/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
         return usuarioService.buscarPorId(id)
@@ -30,35 +30,35 @@ public class UsuarioController {
     }
 
     // POST /usuarios → cria um novo usuário
-    // Exemplo de corpo: { "nome": "João", "email": "joao@email.com", "senha": "123",
-    //                     "unidadeId": 1, "perfil": "SOLICITANTE" }
+    // Exemplo de corpo: { "nome": "João", "email": "joao@email.com",
+    //                     "senha": "123", "perfil": "SOLICITANTE" }
     @PostMapping
     public ResponseEntity<Usuario> criar(@RequestBody UsuarioRequest request) {
         return usuarioService.salvar(request.nome(), request.email(),
-                        request.senha(), request.unidadeId(), request.perfil())
-                .map(u -> ResponseEntity.status(201).body(u)) // 201 Created
-                .orElse(ResponseEntity.badRequest().build()); // 400 se unidade não encontrada
+                        request.senha(), request.perfil())
+                .map(u -> ResponseEntity.status(201).body(u))
+                .orElse(ResponseEntity.badRequest().build());
     }
 
-    // PUT /usuarios/{id} → atualiza um usuário existente
+    // PUT /usuarios/{id}
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizar(@PathVariable Integer id,
                                              @RequestBody UsuarioRequest request) {
         return usuarioService.atualizar(id, request.nome(), request.email(),
-                        request.senha(), request.unidadeId(), request.perfil())
+                        request.senha(), request.perfil(), request.ativo())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE /usuarios/{id} → deleta um usuário
+    // DELETE /usuarios/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         if (usuarioService.deletar(id)) {
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build(); // 404 Not Found
+        return ResponseEntity.notFound().build();
     }
 
-    record UsuarioRequest(String nome, String email, String senha,
-                          Integer unidadeId, Usuario.Perfil perfil) {}
+    record UsuarioRequest(String nome, String email, String senha, Usuario.Perfil perfil,
+                          Boolean ativo) {}
 }
