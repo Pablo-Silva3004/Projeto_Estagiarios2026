@@ -133,6 +133,31 @@
   font-family: monospace;
 }
 
+/* Spinner de carregamento das opções */
+.carregando-opcoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Mensagem de erro no dialog */
+.msg-erro {
+  color: #dc2626;
+  font-size: 13px;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+/* Spinner dentro do botão salvar */
+.spinner-btn {
+  display: inline-block;
+  margin-right: 6px;
+}
+
 /* Ações */
 .dialog-acoes {
   padding: 12px 24px 18px !important;

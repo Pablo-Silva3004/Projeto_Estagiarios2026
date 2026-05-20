@@ -23,7 +23,6 @@ export interface OrdemFornecimento {
   data_entrega_prevista: string | null;
   status:                StatusOrdem;
   observacao:            string | null;
-  valor_total:           string;
 }
 
 @Component({
@@ -68,7 +67,7 @@ export class OrdersComponent implements OnInit {
       numero_ordem: '', fornecedor: '', unidade: '',
       solicitante: '', aprovador: null,
       data_emissao: '', data_entrega_prevista: null,
-      status: 'PENDENTE', observacao: null, valor_total: 'R$ 0,00',
+      status: 'PENDENTE', observacao: null,
     };
     const ref = this.dialog.open(OrderEditDialogComponent, {
       width: '820px',

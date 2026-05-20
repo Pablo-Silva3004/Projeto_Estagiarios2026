@@ -16,11 +16,17 @@
 
     <mat-form-field appearance="outline" class="campo">
       <mat-label>Senha</mat-label>
-      <input matInput type="password" [(ngModel)]="senha" name="senha" placeholder="••••••" />
+      <input matInput type="password" [(ngModel)]="senha" name="senha" placeholder="••••••"
+             (keyup.enter)="entrar()" />
     </mat-form-field>
 
-    <button mat-flat-button color="primary" class="botao" (click)="entrar()">
-      Entrar
+    <!-- Mensagem de erro -->
+    <p class="erro" *ngIf="erro">{{ erro }}</p>
+
+    <button mat-flat-button color="primary" class="botao"
+            (click)="entrar()" [disabled]="carregando">
+      <mat-spinner *ngIf="carregando" diameter="18" class="spinner-inline"></mat-spinner>
+      <span *ngIf="!carregando">Entrar</span>
     </button>
 
   </mat-card>

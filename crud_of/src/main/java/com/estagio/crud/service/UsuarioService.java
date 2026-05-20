@@ -45,6 +45,11 @@ public class UsuarioService {
         });
     }
 
+    // Valida e-mail e senha — retorna o usuário se encontrado
+    public Optional<Usuario> login(String email, String senha) {
+        return usuarioRepository.findByEmailAndSenha(email, senha);
+    }
+
     public boolean deletar(Integer id) {
         if (usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);

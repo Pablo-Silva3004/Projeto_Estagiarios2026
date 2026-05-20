@@ -52,6 +52,30 @@
   margin-bottom: 2px;
 }
 
+/* Botão de entrar */
+.botao {
+  width: 100%;
+  margin-top: 8px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Mensagem de erro */
+.erro {
+  color: #dc2626;
+  font-size: 13px;
+  margin: -4px 0 8px;
+  text-align: center;
+}
+
+/* Spinner inline dentro do botão */
+.spinner-inline {
+  display: inline-block;
+}
+
 /* Link de rodapé */
 .link-rodape {
   text-align: center;

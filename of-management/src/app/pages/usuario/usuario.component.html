@@ -3,7 +3,7 @@
   <h1>Meu Perfil</h1>
   <p class="subtitulo">Informações do usuário logado no sistema</p>
 
-  <div class="layout-perfil">
+  <div class="layout-perfil" *ngIf="usuario; else semUsuario">
 
     <!-- Card de avatar -->
     <mat-card class="card-avatar">
@@ -12,7 +12,7 @@
           [class.avatar-admin]="usuario.perfil === 'ADMIN'"
           [class.avatar-aprovador]="usuario.perfil === 'APROVADOR'"
           [class.avatar-solicitante]="usuario.perfil === 'SOLICITANTE'">
-          {{ usuario.nome.charAt(0) }}
+          {{ usuario.nome.charAt(0).toUpperCase() }}
         </div>
         <span class="usuario-nome">{{ usuario.nome }}</span>
         <span class="badge-perfil"
@@ -59,15 +59,6 @@
         <mat-divider></mat-divider>
 
         <div class="info-linha">
-          <mat-icon>corporate_fare</mat-icon>
-          <div>
-            <span class="info-rotulo">Unidade</span>
-            <span class="info-valor">{{ usuario.unidade }}</span>
-          </div>
-        </div>
-        <mat-divider></mat-divider>
-
-        <div class="info-linha">
           <mat-icon>toggle_on</mat-icon>
           <div>
             <span class="info-rotulo">Status</span>
@@ -79,5 +70,9 @@
     </mat-card>
 
   </div>
+
+  <ng-template #semUsuario>
+    <p class="subtitulo">Nenhum usuário logado.</p>
+  </ng-template>
 
 </div>

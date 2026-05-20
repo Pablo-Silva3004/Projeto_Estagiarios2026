@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
+import { AuthService, UsuarioLogado } from '../../services/auth.service';
+
 @Component({
   selector: 'app-usuario',
   standalone: true,
@@ -12,12 +14,10 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./usuario.component.css'],
 })
 export class UsuarioComponent {
-  // Dados alinhados às tabelas usuario + unidade
-  usuario = {
-    nome:     'Gustavo',
-    email:    'gustavo@empresa.com',
-    perfil:   'ADMIN',
-    unidade:  'TI',
-    ativo:    true,
-  };
+  usuario: UsuarioLogado | null;
+
+  constructor(private authService: AuthService) {
+    // Pega os dados do usuário que está logado no momento
+    this.usuario = this.authService.getUsuario();
+  }
 }

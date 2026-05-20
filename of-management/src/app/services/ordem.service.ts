@@ -31,6 +31,30 @@ export class OrdemService {
 
   constructor(private http: HttpClient) {}
 
+  criar(dados: {
+    numeroOrdem: string;
+    fornecedorId: number;
+    unidadeId: number;
+    usuarioSolicitanteId: number;
+    dataEmissao: string;
+    dataEntregaPrevista: string | null;
+    observacao: string | null;
+  }): Observable<OrdemFornecimento> {
+    // O backend usa SNAKE_CASE — os campos precisam chegar em snake_case
+    const body = {
+      numero_ordem:           dados.numeroOrdem,
+      fornecedor_id:          dados.fornecedorId,
+      unidade_id:             dados.unidadeId,
+      usuario_solicitante_id: dados.usuarioSolicitanteId,
+      data_emissao:           dados.dataEmissao,
+      data_entrega_prevista:  dados.dataEntregaPrevista,
+      observacao:             dados.observacao,
+    };
+    return this.http.post<OrdemApi>(this.apiUrl, body).pipe(
+      map(o => this.mapear(o))
+    );
+  }
+
   listarTodas(): Observable<OrdemFornecimento[]> {
     return this.http.get<OrdemApi[]>(this.apiUrl).pipe(
       map(lista => lista.map(o => this.mapear(o)))

@@ -3,8 +3,8 @@
   <div class="dialog-cabecalho-esquerda">
     <i class="fa-solid fa-file-lines icone-titulo"></i>
     <div>
-      <h2 class="dialog-titulo">Ordem de Fornecimento</h2>
-      <p class="dialog-subtitulo">{{ ordem.numero_ordem }}</p>
+      <h2 class="dialog-titulo">{{ modoNovo ? 'Nova Ordem de Fornecimento' : 'Ordem de Fornecimento' }}</h2>
+      <p class="dialog-subtitulo">{{ modoNovo ? 'Preencha os dados para criar a ordem' : ordem.numero_ordem }}</p>
     </div>
   </div>
   <button mat-icon-button mat-dialog-close class="btn-fechar">
@@ -14,100 +14,148 @@
 
 <mat-dialog-content class="conteudo-dialog">
 
-  <!-- ── Seção 1: Identificação (somente leitura) ── -->
-  <p class="secao-titulo">Identificação</p>
+  <!-- ════════════════════════════════════════
+       MODO: NOVA ORDEM — campos editáveis
+       ════════════════════════════════════════ -->
+  <ng-container *ngIf="modoNovo">
 
-  <div class="linha-dupla">
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Nº da Ordem</mat-label>
-      <input matInput [value]="ordem.numero_ordem" readonly />
+    <!-- Spinner enquanto carrega as opções -->
+    <div *ngIf="carregando" class="carregando-opcoes">
+      <mat-spinner diameter="32"></mat-spinner>
+      <span>Carregando dados...</span>
+    </div>
+
+    <ng-container *ngIf="!carregando">
+
+      <p class="secao-titulo">Identificação</p>
+
+      <div class="linha-dupla">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Nº da Ordem *</mat-label>
+          <input matInput [(ngModel)]="novaOrdem.numeroOrdem" name="numeroOrdem"
+                 placeholder="OF-2026-001" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Fornecedor *</mat-label>
+          <mat-select [(ngModel)]="novaOrdem.fornecedorId" name="fornecedorId">
+            <mat-option *ngFor="let f of fornecedores" [value]="f.id">{{ f.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="linha-dupla">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Unidade Solicitante *</mat-label>
+          <mat-select [(ngModel)]="novaOrdem.unidadeId" name="unidadeId">
+            <mat-option *ngFor="let u of unidades" [value]="u.id">{{ u.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Solicitante *</mat-label>
+          <mat-select [(ngModel)]="novaOrdem.usuarioSolicitanteId" name="solicitanteId">
+            <mat-option *ngFor="let u of usuarios" [value]="u.id">{{ u.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <p class="secao-titulo">Datas</p>
+
+      <div class="linha-dupla">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Data de Emissão *</mat-label>
+          <input matInput type="date" [(ngModel)]="novaOrdem.dataEmissao" name="dataEmissao" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Entrega Prevista</mat-label>
+          <input matInput type="date" [(ngModel)]="novaOrdem.dataEntregaPrevista" name="dataEntregaPrevista" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="campo-cheio">
+        <mat-label>Observação</mat-label>
+        <textarea matInput [(ngModel)]="novaOrdem.observacao" name="observacao" rows="2"
+                  placeholder="Opcional..."></textarea>
+      </mat-form-field>
+
+    </ng-container>
+  </ng-container>
+
+  <!-- ════════════════════════════════════════
+       MODO: EDIÇÃO — maioria readonly
+       ════════════════════════════════════════ -->
+  <ng-container *ngIf="!modoNovo">
+
+    <p class="secao-titulo">Identificação</p>
+
+    <div class="linha-dupla">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Nº da Ordem</mat-label>
+        <input matInput [value]="ordem.numero_ordem" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="ordem.status" name="status">
+          <mat-option *ngFor="let s of statusOpcoes" [value]="s">{{ s }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="linha-dupla">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Fornecedor</mat-label>
+        <input matInput [value]="ordem.fornecedor" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Unidade Solicitante</mat-label>
+        <input matInput [value]="ordem.unidade" readonly />
+      </mat-form-field>
+    </div>
+
+    <div class="linha-dupla">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Solicitante</mat-label>
+        <input matInput [value]="ordem.solicitante" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Aprovador</mat-label>
+        <input matInput [value]="ordem.aprovador || '—'" readonly />
+      </mat-form-field>
+    </div>
+
+    <p class="secao-titulo">Datas</p>
+
+    <div class="linha-dupla">
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Data de Emissão</mat-label>
+        <input matInput [value]="ordem.data_emissao" readonly />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Entrega Prevista</mat-label>
+        <input matInput [value]="ordem.data_entrega_prevista || '—'" readonly />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="campo-cheio">
+      <mat-label>Observação</mat-label>
+      <textarea matInput [(ngModel)]="ordem.observacao" name="observacao" rows="2"></textarea>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Status</mat-label>
-      <mat-select [(ngModel)]="ordem.status" name="status">
-        <mat-option *ngFor="let s of statusOpcoes" [value]="s">{{ s }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
 
-  <div class="linha-dupla">
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Fornecedor</mat-label>
-      <input matInput [value]="ordem.fornecedor" readonly />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Unidade Solicitante</mat-label>
-      <input matInput [value]="ordem.unidade" readonly />
-    </mat-form-field>
-  </div>
+  </ng-container>
 
-  <div class="linha-dupla">
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Solicitante</mat-label>
-      <input matInput [value]="ordem.solicitante" readonly />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Aprovador</mat-label>
-      <input matInput [value]="ordem.aprovador || '—'" readonly />
-    </mat-form-field>
-  </div>
-
-  <!-- ── Seção 2: Datas ─────────────────────────── -->
-  <p class="secao-titulo">Datas</p>
-
-  <div class="linha-dupla">
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Data de Emissão</mat-label>
-      <input matInput [value]="ordem.data_emissao" readonly />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="campo">
-      <mat-label>Entrega Prevista</mat-label>
-      <input matInput [value]="ordem.data_entrega_prevista || '—'" readonly />
-    </mat-form-field>
-  </div>
-
-  <!-- ── Seção 3: Observação (editável) ────────── -->
-  <mat-form-field appearance="outline" class="campo-cheio">
-    <mat-label>Observação</mat-label>
-    <textarea matInput [(ngModel)]="ordem.observacao" name="observacao" rows="2"></textarea>
-  </mat-form-field>
-
-  <mat-divider></mat-divider>
-
-  <!-- ── Seção 4: Itens (somente visualização) ──── -->
-  <p class="secao-titulo" style="margin-top: 16px">Itens da Ordem</p>
-  <p *ngIf="itens.length === 0" style="color: #888; font-size: 0.85rem;">
-    Nenhum item carregado. A edição de itens será implementada em breve.
-  </p>
-
-  <table class="tabela-itens" *ngIf="itens.length > 0">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Qtd.</th>
-        <th>Valor Unit.</th>
-        <th>Qtd. Recebida</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itens">
-        <td>{{ item.produto }}</td>
-        <td>{{ item.quantidade }}</td>
-        <td>{{ item.valor_unitario }}</td>
-        <td>{{ item.quantidade_recebida }}</td>
-        <td class="subtotal-cell">{{ item.subtotal }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Mensagem de erro -->
+  <p class="msg-erro" *ngIf="erro">{{ erro }}</p>
 
 </mat-dialog-content>
 
 <!-- Ações -->
 <mat-dialog-actions align="end" class="dialog-acoes">
-  <button mat-stroked-button (click)="fechar()">Cancelar</button>
-  <button mat-flat-button color="primary" (click)="salvar()">
-    <mat-icon>save</mat-icon>
-    Salvar
+  <button mat-stroked-button (click)="fechar()" [disabled]="salvando">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="salvar()" [disabled]="salvando || carregando">
+    <mat-spinner *ngIf="salvando" diameter="16" class="spinner-btn"></mat-spinner>
+    <mat-icon *ngIf="!salvando">{{ modoNovo ? 'add' : 'save' }}</mat-icon>
+    {{ modoNovo ? 'Criar Ordem' : 'Salvar' }}
   </button>
 </mat-dialog-actions>

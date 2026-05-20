@@ -14,7 +14,13 @@ h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
 
 mat-card { border-radius: 10px; padding: 0; overflow: hidden; }
 
-.tabela { width: 100%; border-collapse: collapse; }
+/* Wrapper que habilita scroll horizontal quando a tabela não cabe na tela */
+.tabela-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* scroll suave no iOS */
+}
+
+.tabela { width: 100%; border-collapse: collapse; min-width: 900px; }
 
 .tabela th {
   text-align: left;

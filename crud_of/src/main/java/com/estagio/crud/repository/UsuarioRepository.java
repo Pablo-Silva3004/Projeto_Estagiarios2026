@@ -12,4 +12,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     // O Spring Data JPA cria a implementação automaticamente
     // Você pode adicionar métodos personalizados aqui se precisar
     // Exemplo: List<Usuario> findByFuncao(Usuario.Funcao funcao);
+
+    // Busca usuário pelo e-mail e senha (usado no login)
+    java.util.Optional<Usuario> findByEmailAndSenha(String email, String senha);
 }
