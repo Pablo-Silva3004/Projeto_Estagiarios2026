@@ -89,7 +89,6 @@ export class OrdemService {
       data_entrega_prevista: o.data_entrega_prevista,
       status:                o.status,
       observacao:            o.observacao,
-      valor_total:           'R$ —',
     };
   }
 }

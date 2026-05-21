@@ -111,7 +111,11 @@ INSERT INTO unidade (nome, sigla) VALUES
 INSERT INTO usuario (nome, email, senha, perfil) VALUES
   ('Gustavo',  'gustavo@email.com',  '1234', 'ADMIN'),
   ('Cintia',   'cintia@email.com',   '1234', 'SOLICITANTE'),
-  ('Vinicius', 'vinicius@email.com', '1234', 'APROVADOR');
+  ('Vinicius', 'vinicius@email.com', '1234', 'APROVADOR'),
+  ('Matheus',  'matheus@email.com',  '1234', 'SOLICITANTE'),
+  ('Cauã',     'caua@email.com',     '1234', 'APROVADOR'),
+  ('Mayara',   'mayara@email.com',   '1234', 'APROVADOR'),
+  ('Pablo',    'pablo@email.com',    '1234', 'SOLICITANTE');
 
 INSERT INTO fornecedor (nome, cnpj, telefone, email, endereco) VALUES
   ('Tech Supplies Ltda', '12345678000190', '(11) 3456-7890', 'contato@techsupplies.com',  'Av. Paulista, 1000 - São Paulo/SP'),
