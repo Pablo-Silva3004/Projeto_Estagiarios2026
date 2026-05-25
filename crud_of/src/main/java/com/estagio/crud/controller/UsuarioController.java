@@ -60,12 +60,12 @@ public class UsuarioController {
     }
 
     // POST /usuarios/login → valida credenciais e retorna o usuário ou 401
-    @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody LoginRequest request) {
-        return usuarioService.login(request.email(), request.senha())
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(401).build());
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Usuario> login(@RequestBody LoginRequest request) {
+//        return usuarioService.login(request.email(), request.senha())
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.status(401).build());
+//    }
 
     record UsuarioRequest(String nome, String email, String senha, Usuario.Perfil perfil,
                           Boolean ativo) {}

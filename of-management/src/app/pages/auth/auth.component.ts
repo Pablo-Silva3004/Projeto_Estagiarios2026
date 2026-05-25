@@ -44,15 +44,22 @@ export class AuthComponent {
 
     this.carregando = true;
 
-    this.authService.login(this.email, this.senha).subscribe({
-      next: () => {
+    this.authService.loginRequest(this.email, this.senha).subscribe({
+      next: (response: any) => {
+        console.log('LOGIN RESPONSE:', response);
+
         this.carregando = false;
+
+        const token = response.token;
+
+        this.authService.login(response.token);
+
         this.router.navigate(['/dashboard']);
       },
       error: () => {
         this.carregando = false;
         this.erro = 'E-mail ou senha incorretos.';
-      },
+      }
     });
   }
 }

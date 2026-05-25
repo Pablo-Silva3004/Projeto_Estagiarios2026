@@ -12,17 +12,17 @@
           [class.avatar-admin]="usuario.perfil === 'ADMIN'"
           [class.avatar-aprovador]="usuario.perfil === 'APROVADOR'"
           [class.avatar-solicitante]="usuario.perfil === 'SOLICITANTE'">
-          {{ usuario.nome.charAt(0).toUpperCase() }}
+          {{ usuario?.nome?.charAt(0).toUpperCase() }}
         </div>
-        <span class="usuario-nome">{{ usuario.nome }}</span>
+        <span class="usuario-nome">{{ usuario?.nome }}</span>
         <span class="badge-perfil"
           [class.perfil-admin]="usuario.perfil === 'ADMIN'"
           [class.perfil-aprovador]="usuario.perfil === 'APROVADOR'"
           [class.perfil-solicitante]="usuario.perfil === 'SOLICITANTE'">
-          {{ usuario.perfil }}
+          {{ usuario?.perfil }}
         </span>
         <span class="badge-status" [class.badge-ativo]="usuario.ativo">
-          {{ usuario.ativo ? 'Ativo' : 'Inativo' }}
+          {{ usuario?.ativo ? 'Ativo' : 'Inativo' }}
         </span>
       </div>
     </mat-card>
@@ -35,7 +35,7 @@
           <mat-icon>person</mat-icon>
           <div>
             <span class="info-rotulo">Nome</span>
-            <span class="info-valor">{{ usuario.nome }}</span>
+            <span class="info-valor">{{ usuario?.nome }}</span>
           </div>
         </div>
         <mat-divider></mat-divider>
@@ -44,7 +44,7 @@
           <mat-icon>email</mat-icon>
           <div>
             <span class="info-rotulo">E-mail</span>
-            <span class="info-valor">{{ usuario.email }}</span>
+            <span class="info-valor">{{ usuario?.email }}</span>
           </div>
         </div>
         <mat-divider></mat-divider>
@@ -53,7 +53,7 @@
           <mat-icon>shield</mat-icon>
           <div>
             <span class="info-rotulo">Perfil de Acesso</span>
-            <span class="info-valor">{{ usuario.perfil }}</span>
+            <span class="info-valor">{{ usuario?.perfil }}</span>
           </div>
         </div>
         <mat-divider></mat-divider>
@@ -62,7 +62,7 @@
           <mat-icon>toggle_on</mat-icon>
           <div>
             <span class="info-rotulo">Status</span>
-            <span class="info-valor">{{ usuario.ativo ? 'Ativo' : 'Inativo' }}</span>
+            <span class="info-valor">{{ usuario?.ativo ? 'Ativo' : 'Inativo' }}</span>
           </div>
         </div>
 
