@@ -6,6 +6,7 @@ import com.estagio.repository.UsuarioRepository;
 import com.estagio.security.JwtService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.WebApplicationException;
 
 @ApplicationScoped
 public class AuthService {
@@ -20,12 +21,12 @@ public class AuthService {
 
         Usuario usuario = usuarioRepository.buscarPorEmail(dto.email);
 
-        if (usuario == null) {
-            throw new RuntimeException("Usuário não encontrado");
-        }
+        if (usuario == null || !usuario.senha.equals(dto.senha)) {
 
-        if (!usuario.senha.equals(dto.senha)) {
-            throw new RuntimeException("Senha inválida");
+            throw new WebApplicationException(
+                    "Usuário ou senha inválidos",
+                    401
+            );
         }
 
         return jwtService.gerarToken(usuario.email);

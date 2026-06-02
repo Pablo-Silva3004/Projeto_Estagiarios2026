@@ -13,12 +13,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-        console.log('🔥 INTERCEPTOR EXECUTOU');
+        console.log('INTERCEPTOR EXECUTOU');
         console.log('URL:', req.url);
 
         const token = localStorage.getItem('token');
 
         console.log('TOKEN:', token);
+
+        if (req.url.includes('/auth/login')) {
+            return next.handle(req);
+        }
 
         if (!token) {
             return next.handle(req);

@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔥 LOGIN HTTP (QUARKUS)
+  // LOGIN HTTP (QUARKUS)
   loginRequest(email: string, senha: string) {
     return this.http.post<any>(
         'http://localhost:8081/auth/login',
@@ -25,7 +25,7 @@ export class AuthService {
 
   // SALVAR TOKEN
   login(token: string) {
-    console.log('💾 SALVANDO TOKEN:', token);
+    console.log('SALVANDO TOKEN:', token);
     localStorage.setItem('token', token);
   }
 

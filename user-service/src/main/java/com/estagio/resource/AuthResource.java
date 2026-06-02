@@ -22,8 +22,8 @@ public class AuthResource {
 
     @POST
     @Path("/login")
-    public Response login(LoginRequest request) {
-        String token = "JWT_GERADO";
+    public Response login(LoginDTO request) {
+        String token = authService.login(request);
 
         return Response.ok(
                 Map.of("token", token)

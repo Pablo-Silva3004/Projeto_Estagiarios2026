@@ -13,7 +13,7 @@ public class JwtService {
         return Jwt
                 .issuer("user-service")
                 .subject(email)
-                .expiresIn(Duration.ofHours(24))
+                .expiresIn(Duration.ofHours(1))
                 .sign();
     }
 }
